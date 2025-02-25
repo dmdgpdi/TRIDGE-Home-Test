@@ -21,7 +21,7 @@
     "rules": {
       "recommended": true,
       "style": {
-        "noNonNullAssertion": "info"
+        "noNonNullAssertion": "off"
       },
       "a11y": { "all": false }
     }
