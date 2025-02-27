@@ -1,50 +1,33 @@
-# React + TypeScript + Vite
+#  My React Data Breadcrumb
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 실행법
+```
+npm ci
+npm run build
+npm run preview
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+그리고 http://localhost:4173/으로 이동하여 주세요.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## 구현 기능
+요구사항 구현
+- 라우트 구조 반영
+- URL의 변화에 따라 해당하는 페이지 경로 구현
+- 각 라우트는 모두 독립적으로 존재하며 내부에서 Breadcrumb를 가진다.
+- 부모 라우트와의 관계를 내부로직에 반영 하여야 한다.
+- 각 경로를 클릭시 해당하는 URL로 이동해야 하고, 현재 경로에 대해서는 링크로 동작하지 않도록 한다. 
+- 각 URL에 해당되는 데이터를 Breadcrumb에 전달하여 변수에 해당하는 라우트 이름을 적절하게 출력할 수 있어야 하며 이를 위한 validation을 반영하여야 한다.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+추가 기능 구현
+- 모바일에서 중간 경로 생략을 통해 UI를 최적화
+- 데이터가 로딩이 되는 경우를 반영하여 구현
+
+
+## 사용한 기술
+- React 19
+- Typescript
+- React Router
+- Tanstack Query
+- vanilla-extract
+
+
