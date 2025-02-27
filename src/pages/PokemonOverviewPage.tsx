@@ -1,16 +1,47 @@
-import { Outlet } from "react-router";
+import { NavLink, useParams } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
-import { StaticBreadcrumb } from "../StaticBreadcrumb";
+import { useFetchPokemonSpeciesInfo } from "../queries/useFetchPokemonSpeciesInfo";
+import { useSetBreadcrumbInfo } from "../useSetBreadcrumbInfo";
 
 export function PokemonOverviewPage() {
+  const { species } = useParams<{ species: string }>();
+
+  if (!species) {
+    throw new Error("Can't find species");
+  }
+
+  const { data: pokemonInfo } = useFetchPokemonSpeciesInfo(species);
+  useSetBreadcrumbInfo({
+    routeKey: ":species",
+    data: pokemonInfo,
+    getName: (pokemonInfo) => pokemonInfo?.name,
+  });
+
+  if (!pokemonInfo) {
+    return (
+      <div>
+        <h1>Pokemon Overview Page</h1>
+        <RouteBreadcrumb />
+        <hr />
+        loading...
+      </div>
+    );
+  }
+
   return (
     <div>
-      <h1>PokemonOverviewPage</h1>
-      <StaticBreadcrumb />
-      <h2>dynamic</h2>
+      <h1>Pokemon Overview Page</h1>
       <RouteBreadcrumb />
-      <h2>-------------------</h2>
-      <Outlet />
+      <hr />
+
+      <NavLink to={"pokemons"}>
+        <h2>go to {pokemonInfo?.name} Pokemon Varieties List</h2>
+      </NavLink>
+
+      <br />
+      <h2>Info</h2>
+      <p>{`color: ${pokemonInfo?.color.name}`}</p>
+      <p>{`base_happiness: ${pokemonInfo?.base_happiness}`}</p>
     </div>
   );
 }
