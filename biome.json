@@ -23,7 +23,8 @@
       "style": {
         "noNonNullAssertion": "off"
       },
-      "a11y": { "all": false }
+      "a11y": { "all": false },
+      "correctness": { "useExhaustiveDependencies": "off" }
     }
   },
   "javascript": {
