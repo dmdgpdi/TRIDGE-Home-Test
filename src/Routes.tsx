@@ -1,5 +1,6 @@
 import type { JSX } from "react";
-import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
+import { Route, Routes as RouterRoutes } from "react-router";
+import { RouteInfoProvider } from "./RouteInfoProvider";
 import { ROUTES, type ReactRouterType } from "./route.config";
 
 const buildFullPath = (...segments: string[]) =>
@@ -34,11 +35,11 @@ const renderRoutes = (
 
 export function Routes() {
   return (
-    <BrowserRouter>
-      <RouterRoutes>
+    <RouterRoutes>
+      <Route element={<RouteInfoProvider />}>
         {renderRoutes(ROUTES)}
         <Route path="*" element={<div>404 Not Found</div>} />
-      </RouterRoutes>
-    </BrowserRouter>
+      </Route>
+    </RouterRoutes>
   );
 }
