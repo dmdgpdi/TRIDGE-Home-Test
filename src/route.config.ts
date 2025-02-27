@@ -1,9 +1,9 @@
 import type { JSX } from "react";
-import { App } from "./pages/App";
-import { PokemonDescriptionPage } from "./pages/PokemonDescriptionPage";
-import { PokemonOverviewListPage } from "./pages/PokemonOverviewListPage";
+import { Home } from "./pages/Home";
+import { PokemonDetailPage } from "./pages/PokemonDetailPage";
 import { PokemonOverviewPage } from "./pages/PokemonOverviewPage";
 import { PokemonSpeciesListPage } from "./pages/PokemonSpeciesListPage";
+import { PokemonVarietiesListPage } from "./pages/PokemonVarietiesListPage";
 
 export interface RouteBase {
   path: string;
@@ -34,7 +34,6 @@ export type RoutePaths = ExtractRoutePaths<typeof ROUTES>;
 export interface ReactRouterType extends RouteType<ReactRouterType> {
   nested: boolean;
   element: () => JSX.Element;
-  isIndex?: boolean;
 }
 
 export const ROUTES = [
@@ -42,8 +41,7 @@ export const ROUTES = [
     path: "/",
     name: "Home",
     nested: false,
-    isIndex: true,
-    element: App,
+    element: Home,
     childRoutes: [
       {
         path: "species",
@@ -55,21 +53,21 @@ export const ROUTES = [
             path: ":species",
             name: (param: string) => `${param} Overview`,
             useExternalName: true,
-            nested: true,
+            nested: false,
             element: PokemonOverviewPage,
             childRoutes: [
               {
                 path: "pokemons",
-                name: "Pokemon List",
+                name: "Pokemon Varieties List",
                 nested: false,
-                element: PokemonOverviewListPage,
+                element: PokemonVarietiesListPage,
                 childRoutes: [
                   {
                     path: ":pokemon",
                     name: (param: string) => param,
                     useExternalName: true,
                     nested: false,
-                    element: PokemonDescriptionPage,
+                    element: PokemonDetailPage,
                   },
                 ],
               },
