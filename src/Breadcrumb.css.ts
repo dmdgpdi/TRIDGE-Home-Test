@@ -42,8 +42,8 @@ globalStyle(`${breadcrumbSeparatorStyle} > svg`, {
 
 export const breadcrumbEllipsisStyle = style({
   display: "flex",
-  width: "2.25rem",
-  height: "2.25rem",
+  width: "1.5rem",
+  height: "1.5rem",
   alignItems: "center",
   justifyContent: "center",
 });

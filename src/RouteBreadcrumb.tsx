@@ -3,18 +3,27 @@ import { NavLink } from "react-router";
 import { Fragment } from "react/jsx-runtime";
 import {
   Breadcrumb,
+  BreadcrumbEllipsis,
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./Breadcrumb";
+import {
+  hiddenOnMobileStyle,
+  visibleOnMobileStyle,
+} from "./RouteBreadcrumb.css";
 import { SyncLoader } from "./SyncLoader";
 import { getBreadcrumbs } from "./getBreadcrumbs";
 import { ROUTES, type RoutePaths } from "./route.config";
 import { useGetRouteInfoContext } from "./useGetRouteInfoContext";
 
-export function RouteBreadcrumb() {
+interface RouteBreadcrumbProps {
+  isShowMobile?: boolean;
+}
+
+export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
   const breadcrumbs = useMemo(() => {
     const pathname = location.pathname;
     const segments = [
@@ -24,11 +33,20 @@ export function RouteBreadcrumb() {
 
     return getBreadcrumbs(ROUTES, segments);
   }, []);
+
+  const mobileBreadcrumbs = useMemo(() => {
+    if (breadcrumbs.length <= 2) {
+      return [breadcrumbs[0], breadcrumbs[breadcrumbs.length - 1]];
+    }
+
+    return [breadcrumbs[0], "ellipsis", breadcrumbs[breadcrumbs.length - 1]];
+  }, [breadcrumbs]);
+
   const { routeInfo } = useGetRouteInfoContext();
 
   return (
     <Breadcrumb>
-      <BreadcrumbList>
+      <BreadcrumbList className={isShowMobile ? hiddenOnMobileStyle : ""}>
         {breadcrumbs.map((crumb, index) => {
           const useExternalName = crumb.useExternalName;
           const curRouteInfo = useExternalName
@@ -60,6 +78,54 @@ export function RouteBreadcrumb() {
           );
         })}
       </BreadcrumbList>
+
+      {isShowMobile && (
+        <BreadcrumbList className={visibleOnMobileStyle}>
+          {mobileBreadcrumbs.map((crumb, index) => {
+            if (typeof crumb === "string") {
+              return (
+                <>
+                  <BreadcrumbItem>
+                    <BreadcrumbEllipsis />
+                  </BreadcrumbItem>
+                  <BreadcrumbSeparator />
+                </>
+              );
+            }
+
+            const useExternalName = crumb.useExternalName;
+            const curRouteInfo = useExternalName
+              ? routeInfo[crumb.segment]
+              : null;
+            const isLast = index === mobileBreadcrumbs.length - 1;
+            const isLoading = curRouteInfo?.isLoading;
+            const displayName = curRouteInfo ? curRouteInfo.name : crumb.name;
+            const content = isLoading ? (
+              <SyncLoader size={4} bounceDistance={4} />
+            ) : (
+              displayName
+            );
+
+            return (
+              <Fragment key={crumb.path}>
+                <BreadcrumbItem>
+                  {isLast ? (
+                    <BreadcrumbPage>{content}</BreadcrumbPage>
+                  ) : (
+                    <BreadcrumbLink asChild>
+                      <NavLink to={crumb.path}>{content}</NavLink>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+
+                {index < mobileBreadcrumbs.length - 1 && (
+                  <BreadcrumbSeparator />
+                )}
+              </Fragment>
+            );
+          })}
+        </BreadcrumbList>
+      )}
     </Breadcrumb>
   );
 }
