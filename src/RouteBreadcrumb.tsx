@@ -11,7 +11,7 @@ import {
 
 import { SyncLoader } from "./SyncLoader";
 import { getBreadcrumbs } from "./getBreadcrumbs";
-import { ROUTES, type RoutePaths } from "./route";
+import { ROUTES, type RoutePaths } from "./route.config";
 import { useGetRouteInfoContext } from "./useGetRouteInfoContext";
 
 export function RouteBreadcrumb() {

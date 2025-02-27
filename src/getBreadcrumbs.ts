@@ -1,4 +1,4 @@
-import type { RoutePaths, RouteType } from "./route";
+import type { RoutePaths, RouteType } from "./route.config";
 
 interface BreadcrumbItemType {
   name: string;

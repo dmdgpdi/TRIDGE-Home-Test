@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import type { RoutePaths } from "./route";
+import type { RoutePaths } from "./route.config";
 
 export type RouteInfoType = Record<
   RoutePaths,
