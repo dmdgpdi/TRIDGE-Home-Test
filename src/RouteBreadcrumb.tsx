@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { NavLink } from "react-router";
 import { Fragment } from "react/jsx-runtime";
 import {
   Breadcrumb,
@@ -8,7 +9,6 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "./Breadcrumb";
-
 import { SyncLoader } from "./SyncLoader";
 import { getBreadcrumbs } from "./getBreadcrumbs";
 import { ROUTES, type RoutePaths } from "./route.config";
@@ -49,7 +49,9 @@ export function RouteBreadcrumb() {
                 {isLast ? (
                   <BreadcrumbPage>{content}</BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={crumb.path}>{content}</BreadcrumbLink>
+                  <BreadcrumbLink asChild>
+                    <NavLink to={crumb.path}>{content}</NavLink>
+                  </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
 
