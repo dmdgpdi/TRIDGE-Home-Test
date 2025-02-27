@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import type { RoutePaths } from "./route.config";
 import { useGetRouteInfoContext } from "./useGetRouteInfoContext";
 
-interface UseSetBreadcrumbInfoParamsType<T> {
+interface UseSetRouteInfoParamsType<T> {
   routeKey: RoutePaths;
   data: T | undefined;
   getName: (data: T) => string;
 }
 
-export function useSetBreadcrumbInfo<T>({
+export function useSetRouteInfo<T>({
   routeKey,
   data,
   getName,
-}: UseSetBreadcrumbInfoParamsType<T>) {
+}: UseSetRouteInfoParamsType<T>) {
   const { setRouteInfo } = useGetRouteInfoContext();
 
   useEffect(

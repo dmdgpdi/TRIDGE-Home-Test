@@ -1,7 +1,7 @@
 import { NavLink, useParams } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
 import { useFetchPokemonSpeciesInfo } from "../queries/useFetchPokemonSpeciesInfo";
-import { useSetBreadcrumbInfo } from "../useSetBreadcrumbInfo";
+import { useSetRouteInfo } from "../useSetRouteInfo";
 
 export function PokemonOverviewPage() {
   const { species } = useParams<{ species: string }>();
@@ -11,7 +11,7 @@ export function PokemonOverviewPage() {
   }
 
   const { data: pokemonInfo } = useFetchPokemonSpeciesInfo(species);
-  useSetBreadcrumbInfo({
+  useSetRouteInfo({
     routeKey: ":species",
     data: pokemonInfo,
     getName: (pokemonInfo) => pokemonInfo?.name,

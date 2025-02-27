@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
 import { useFetchPokemonInfo } from "../queries/useFetchPokemonInfo";
-import { useSetBreadcrumbInfo } from "../useSetBreadcrumbInfo";
+import { useSetRouteInfo } from "../useSetRouteInfo";
 
 export function PokemonDetailPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
@@ -11,7 +11,7 @@ export function PokemonDetailPage() {
   }
 
   const { data: pokemonInfo } = useFetchPokemonInfo(pokemon);
-  useSetBreadcrumbInfo({
+  useSetRouteInfo({
     routeKey: ":pokemon",
     data: pokemonInfo,
     getName: (pokemonInfo) => pokemonInfo?.name,
