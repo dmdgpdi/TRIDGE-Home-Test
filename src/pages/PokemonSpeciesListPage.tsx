@@ -1,16 +1,32 @@
-import { Outlet } from "react-router";
+import { NavLink } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
-import { StaticBreadcrumb } from "../StaticBreadcrumb";
+import { useFetchPokemonSpecies } from "../queries/useFetchPokemonSpecies";
 
 export function PokemonSpeciesListPage() {
+  const { data } = useFetchPokemonSpecies();
+
+  if (!data) {
+    return <div>loading...</div>;
+  }
+
+  const { results: pokemonSpecies } = data;
+
   return (
     <div>
-      <h1>PokemonSpeciesListPage</h1>
-      <StaticBreadcrumb />
-      <h2>dynamic</h2>
+      <h1>Pokemon Species List Page</h1>
       <RouteBreadcrumb />
-      <h2>-------------------</h2>
-      <Outlet />
+      <hr />
+      {pokemonSpecies.map((pokemon) => {
+        return (
+          <div key={pokemon.url}>
+            <div>
+              <NavLink to={`${pokemon.name}`}>
+                <h2>{pokemon.name}</h2>
+              </NavLink>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
