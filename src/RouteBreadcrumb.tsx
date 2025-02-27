@@ -35,6 +35,10 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
   }, []);
 
   const mobileBreadcrumbs = useMemo(() => {
+    if (breadcrumbs.length <= 1) {
+      return [breadcrumbs[0]];
+    }
+
     if (breadcrumbs.length <= 2) {
       return [breadcrumbs[0], breadcrumbs[breadcrumbs.length - 1]];
     }
@@ -84,12 +88,12 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
           {mobileBreadcrumbs.map((crumb, index) => {
             if (typeof crumb === "string") {
               return (
-                <>
+                <Fragment key={crumb}>
                   <BreadcrumbItem>
                     <BreadcrumbEllipsis />
                   </BreadcrumbItem>
                   <BreadcrumbSeparator />
-                </>
+                </Fragment>
               );
             }
 
@@ -107,7 +111,7 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
             );
 
             return (
-              <Fragment key={crumb.path}>
+              <Fragment key={`mobile-${crumb.path}`}>
                 <BreadcrumbItem>
                   {isLast ? (
                     <BreadcrumbPage>{content}</BreadcrumbPage>
