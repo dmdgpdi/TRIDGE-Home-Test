@@ -11,6 +11,12 @@ import {
   BreadcrumbSeparator,
 } from "./Breadcrumb";
 import {
+  breadcrumbEllipsisStyle,
+  breadcrumbSeparatorStyle,
+} from "./Breadcrumb.css";
+import {
+  breadcrumbLinkStyle,
+  breadcrumbPageStyle,
   hiddenOnMobileStyle,
   visibleOnMobileStyle,
 } from "./RouteBreadcrumb.css";
@@ -69,15 +75,21 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
             <Fragment key={crumb.path}>
               <BreadcrumbItem>
                 {isLast ? (
-                  <BreadcrumbPage>{content}</BreadcrumbPage>
+                  <BreadcrumbPage className={breadcrumbPageStyle}>
+                    {content}
+                  </BreadcrumbPage>
                 ) : (
                   <BreadcrumbLink asChild>
-                    <NavLink to={crumb.path}>{content}</NavLink>
+                    <NavLink to={crumb.path} className={breadcrumbLinkStyle}>
+                      {content}
+                    </NavLink>
                   </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
 
-              {index < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+              {index < breadcrumbs.length - 1 && (
+                <BreadcrumbSeparator className={breadcrumbSeparatorStyle} />
+              )}
             </Fragment>
           );
         })}
@@ -90,9 +102,9 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
               return (
                 <Fragment key={crumb}>
                   <BreadcrumbItem>
-                    <BreadcrumbEllipsis />
+                    <BreadcrumbEllipsis className={breadcrumbEllipsisStyle} />
                   </BreadcrumbItem>
-                  <BreadcrumbSeparator />
+                  <BreadcrumbSeparator className={breadcrumbSeparatorStyle} />
                 </Fragment>
               );
             }
@@ -114,16 +126,20 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
               <Fragment key={`mobile-${crumb.path}`}>
                 <BreadcrumbItem>
                   {isLast ? (
-                    <BreadcrumbPage>{content}</BreadcrumbPage>
+                    <BreadcrumbPage className={breadcrumbPageStyle}>
+                      {content}
+                    </BreadcrumbPage>
                   ) : (
                     <BreadcrumbLink asChild>
-                      <NavLink to={crumb.path}>{content}</NavLink>
+                      <NavLink to={crumb.path} className={breadcrumbLinkStyle}>
+                        {content}
+                      </NavLink>
                     </BreadcrumbLink>
                   )}
                 </BreadcrumbItem>
 
                 {index < mobileBreadcrumbs.length - 1 && (
-                  <BreadcrumbSeparator />
+                  <BreadcrumbSeparator className={breadcrumbSeparatorStyle} />
                 )}
               </Fragment>
             );
