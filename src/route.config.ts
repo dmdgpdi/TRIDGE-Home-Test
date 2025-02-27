@@ -5,6 +5,9 @@ import { PokemonOverviewPage } from "./pages/PokemonOverviewPage";
 import { PokemonSpeciesListPage } from "./pages/PokemonSpeciesListPage";
 import { PokemonVarietiesListPage } from "./pages/PokemonVarietiesListPage";
 
+/**
+ * 외부 데이터를 사용하는지 useExternalName를 이용해 판단합니다.
+ */
 export interface RouteBase {
   path: string;
   name: string | ((param: string) => string);

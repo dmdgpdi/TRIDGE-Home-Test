@@ -4,6 +4,9 @@ import { PokemonRouteInfoUpdater } from "./PokemonRouteInfoUpdater";
 import { RouteInfoContext, type RouteInfoType } from "./RouteInfoContext";
 import { SpeciesRouteInfoUpdater } from "./SpeciesRouteInfoUpdater";
 
+/**
+ * routeInfo를 제공합니다. 또한, 새로고침이나 이동시에 값을 유지 및 추가할 수 있게 Updater가 존재합니다.
+ */
 export function RouteInfoProvider({
   children = <Outlet />,
 }: PropsWithChildren) {

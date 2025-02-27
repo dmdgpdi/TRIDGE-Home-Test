@@ -37,7 +37,7 @@ export function RouteBreadcrumb({ isShowMobile = true }: RouteBreadcrumbProps) {
       ...pathname.split("/").filter((path) => path !== ""),
     ] as RoutePaths[];
 
-    return getBreadcrumbs(ROUTES, segments);
+    return getBreadcrumbs({ routes: ROUTES, segments });
   }, []);
 
   const mobileBreadcrumbs = useMemo(() => {

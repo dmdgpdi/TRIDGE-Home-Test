@@ -7,12 +7,22 @@ interface BreadcrumbItemType {
   segment: RoutePaths;
 }
 
-export const getBreadcrumbs = (
-  routes: readonly RouteType[],
-  segments: RoutePaths[],
-  breadcrumbs: BreadcrumbItemType[] = [],
+interface GetBreadcrumbsParamsType {
+  routes: readonly RouteType[];
+  segments: RoutePaths[];
+  breadcrumbs?: BreadcrumbItemType[];
+  parentPath?: string;
+}
+
+/**
+ * Breadcrumbs을 만들 때 필요한 값을 반환합니다.
+ */
+export const getBreadcrumbs = ({
+  routes,
+  segments,
+  breadcrumbs = [],
   parentPath = "",
-): BreadcrumbItemType[] => {
+}: GetBreadcrumbsParamsType): BreadcrumbItemType[] => {
   if (segments.length === 0) {
     return breadcrumbs;
   }
@@ -40,12 +50,12 @@ export const getBreadcrumbs = (
     ];
 
     if (matchedRoute.childRoutes) {
-      return getBreadcrumbs(
-        matchedRoute.childRoutes,
-        segments.slice(1),
-        newBreadcrumbs,
-        currentPath,
-      );
+      return getBreadcrumbs({
+        routes: matchedRoute.childRoutes,
+        segments: segments.slice(1),
+        breadcrumbs: newBreadcrumbs,
+        parentPath: currentPath,
+      });
     }
     return newBreadcrumbs;
   }

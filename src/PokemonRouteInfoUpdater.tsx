@@ -5,6 +5,9 @@ interface PokemonRouteRefetchDetectorProps {
   pokemon: string;
 }
 
+/**
+ * props로 값을 주입받아 routeInfo를 업데이트합니다.
+ */
 export function PokemonRouteInfoUpdater({
   pokemon,
 }: PokemonRouteRefetchDetectorProps) {
