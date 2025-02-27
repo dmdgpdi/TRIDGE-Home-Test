@@ -1,6 +1,7 @@
 import { NavLink, useParams } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
 import { useFetchPokemonSpeciesInfo } from "../queries/useFetchPokemonSpeciesInfo";
+import { containerStyle, linkButtonStyle, titleStyle } from "./page.css";
 
 export function PokemonOverviewPage() {
   const { species } = useParams<{ species: string }>();
@@ -13,8 +14,8 @@ export function PokemonOverviewPage() {
 
   if (!pokemonSpeciesInfo) {
     return (
-      <div>
-        <h1>Pokemon Overview Page</h1>
+      <div className={containerStyle}>
+        <h1 className={titleStyle}>Pokemon Overview Page</h1>
         <RouteBreadcrumb />
         <hr />
         loading...
@@ -23,12 +24,12 @@ export function PokemonOverviewPage() {
   }
 
   return (
-    <div>
-      <h1>Pokemon Overview Page</h1>
+    <div className={containerStyle}>
+      <h1 className={titleStyle}>Pokemon Overview Page</h1>
       <RouteBreadcrumb />
       <hr />
 
-      <NavLink to={"pokemons"}>
+      <NavLink to={"pokemons"} className={linkButtonStyle}>
         <h2>go to {pokemonSpeciesInfo?.name} Pokemon Varieties List</h2>
       </NavLink>
 

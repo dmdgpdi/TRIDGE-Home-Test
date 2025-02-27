@@ -1,6 +1,7 @@
 import { useParams } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
 import { useFetchPokemonInfo } from "../queries/useFetchPokemonInfo";
+import { containerStyle, titleStyle } from "./page.css";
 
 export function PokemonDetailPage() {
   const { pokemon } = useParams<{ pokemon: string }>();
@@ -12,15 +13,14 @@ export function PokemonDetailPage() {
   const { data: pokemonInfo } = useFetchPokemonInfo(pokemon);
 
   return (
-    <div>
-      <h1>Pokemon Detail Page</h1>
+    <div className={containerStyle}>
+      <h1 className={titleStyle}>Pokemon Detail Page</h1>
       <RouteBreadcrumb />
       <hr />
-      <div>
-        <p>name: {pokemonInfo?.name}</p>
-        <p>height: {pokemonInfo?.height}</p>
-        <p>weight: {pokemonInfo?.weight}</p>
-      </div>
+
+      <p>name: {pokemonInfo?.name}</p>
+      <p>height: {pokemonInfo?.height}</p>
+      <p>weight: {pokemonInfo?.weight}</p>
     </div>
   );
 }

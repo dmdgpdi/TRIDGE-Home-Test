@@ -1,12 +1,16 @@
 import { NavLink } from "react-router";
 import { RouteBreadcrumb } from "../RouteBreadcrumb";
+import { containerStyle, linkButtonStyle, titleStyle } from "./page.css";
 
 export function Home() {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className={containerStyle}>
+      <h1 className={titleStyle}>Home</h1>
       <RouteBreadcrumb />
-      <NavLink to={"/species"}>go to species</NavLink>
+      <hr />
+      <NavLink to={"/species"} className={linkButtonStyle}>
+        go to species
+      </NavLink>
     </div>
   );
 }
